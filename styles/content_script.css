@@ -1,0 +1,11 @@
+ytd-watch-grid[swatcheroo-split-scroll][default-two-column-layout] #fixed-columns-secondary.ytd-watch-grid {
+    position: absolute !important;
+}
+
+#primary_inner {
+    margin-top: 32px !important;
+}
+
+#player {
+    margin-top: 16px !important;
+}
