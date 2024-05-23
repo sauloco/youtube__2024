@@ -1,9 +1,13 @@
 const swapPanels = ({player, primary, secondary, primaryInner, secondaryInner}) => {
-    console.log('content script loaded swapping')
+
+    const fixedPrimary = document.querySelector('#fixed_primary')
+    if (fixedPrimary) {
+        fixedPrimary.id = 'fixed_secondary'
+    }
 
     primaryInner.id = 'secondary_inner'
     secondaryInner.id = 'primary_inner'
-    // fixedPrimary.id = 'fixed_secondary'
+
     primary.id = 'secondary'
     primary.classList.add('youtube__2024-primary')
     secondary.id = 'primary'
@@ -36,7 +40,7 @@ const keepPlayerInPrimary = () => {
 
     if (player && primary) {
         if (player.parentElement === primary) {
-            console.log('player already in primary')
+            console.info('player already in primary')
             return
         }
 
@@ -52,7 +56,7 @@ const keepFixedSecondaryInSecondary = () => {
 
     if (fixedSecondary && secondary) {
         if (fixedSecondary.parentElement === secondary) {
-            console.log('fixed secondary already in secondary')
+            console.info('fixed secondary already in secondary')
             return
         }
 
@@ -62,19 +66,17 @@ const keepFixedSecondaryInSecondary = () => {
 }
 
 const findPanels = () => {
-    console.count('finding panels')
     const player = document.querySelector('#player')
     const primary = document.querySelector('#primary')
     const secondary = document.querySelector('#secondary')
     const primaryInner = document.querySelector('#primary-inner')
     const secondaryInner = document.querySelector('#secondary-inner')
-    console.log(primary, secondary, primaryInner, secondaryInner)
 
     let isCommentsInPrimary = true
     if (primary) {
         isCommentsInPrimary = !!primary.querySelector('#comments')
         if (isCommentsInPrimary) {
-            console.log('Nice. youtube__2024 not needed will be deactivated now')
+            console.info('Nice, youtube__2024 not needed. It will be deactivated now')
             clearInterval(cancelFindingInterval)
             isActive = false
             return null
